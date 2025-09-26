@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+    MagicMail Server: Login Page    </title>
+    <link rel='stylesheet' href='https://mail.nwi.net/css/wizard.css?mtime=1758124363' type='text/css'/>
+<link rel='stylesheet' href='https://mail.nwi.net/css/magicmail.css?mtime=1758124363' type='text/css'/>
+    <!--[if IE]><link rel='stylesheet' href='css/magicmail-ie.css?mtime=1758124356' type='text/css'/>
+<![endif]-->
+<link rel='stylesheet' href='https://mail.nwi.net/css/css.css?mtime=1758131180' type='text/css'/>
+<link rel='stylesheet' href='https://mail.nwi.net/css/magicmail.login.css?mtime=1758124356' type='text/css'/>
+<link rel='stylesheet' href='https://mail.nwi.net/html_files/user.css?mtime=1647921341' type='text/css'/>
+<script language='JavaScript' type='text/javascript' src='https://mail.nwi.net/js/global_javascript.js?mtime=1758131799'></script>
+<script language='JavaScript' type='text/javascript' src='https://mail.nwi.net/js/htmlcanvas.js?mtime=1758124356'></script>
+<script language='JavaScript' type='text/javascript' src='/login.js'></script>
+<script language='JavaScript' type='text/javascript' src='https://mail.nwi.net/js/jquery.js?mtime=1758131819'></script>
+    <link rel="shortcut icon" href="/favicon.ico" />
+	<script language="javascript" type="text/javascript">var isauthenticated=0;</script>
+    <link rel="icon" href="https://mail.nwi.net/pics/apple-touch-icon-precomposed.png" />
+    <link rel="icon" type="image/png" sizes="72x72" href="https://mail.nwi.net/pics/apple-touch-icon-72x72-precomposed.png" />
+    <link rel="icon" type="image/png" sizes="114x114" href="https://mail.nwi.net/pics/apple-touch-icon-114x114-precomposed.png" />
+    <link rel="icon" type="image/png" sizes="144x144" href="https://mail.nwi.net/pics/apple-touch-icon-144x144-precomposed.png" />
+</head>
+<body id="MagicBody" class="MagicBody">
+<div id="MagicWrapper" class="magic-unauthenticated">
+	<table class="MagicOuterTable">
+		<tr id='page_contents_row'>
+			<td>
+                <!-- $Header$ -->
+
+<!-- =================================================================== -->
+<!-- Header Style 1 BEGIN -->
+<!-- =================================================================== -->
+
+<table id="MainHeaderTable">
+    <tr valign="top">
+        <td id="MMLogo">
+            <span><img id='leftHeaderLogo' src="https://mail.nwi.net/pics/magicmail_logo_white.png" border="0"></span>
+        </td>
+        <td align="right">
+            <table id="header-table" class="nopad">
+                <tr>
+                    <td colspan="2" id="HeaderLogo"><img id='rightHeaderLogo' src="https://mail.nwi.net/isp_images/LocalTel-main-logo.gif" style="padding-top: 12px;" ></td>
+                </tr>
+                <tr valign="bottom">
+                    <td colspan="2" class="nopad">
+                        <div class='MagicNavTab'>
+                            <a href="logout.php" id="header-logout-btn">Logout</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="UserSubHeaderRow">
+        <td align="right" colspan="2" id="MainHeaderSubMenu">
+                    </td>
+    </tr>
+</table>
+
+<!-- =================================================================== -->
+<!-- Header Style 1 END -->
+<!-- =================================================================== -->
+				<table class="MagicContentTable">
+					<tr valign="top">
+                    
+						<td class="MagicContentCell" valign="top">
+<div id="loginContentCell">
+<!-- $Id -->
+<div class="login-info-content">
+<h2>Welcome to LocalTel Webmail!</h2>
+<h4>Login to access your account</h4>
+<p class='main_wiz'>
+Welcome to the User Site for the MagicMail System.  <br />
+This is where you can setup and configure all your email options.
+</p>
+<h4>Forgot Your Password?</h4>
+<p class='main_wiz'>
+<!-- 
+Please login by entering your <b>full email address in lower case</b> and your password.<br />
+If you have lost your password, please <a href="recover-password.php">click here</a> to recover it.<br />
+-->
+We are dedicated to providing you a secure online environment.<br/>
+To have your password reset, please contact your local Customer
+Service and Technical Support team.<br/><br/>
+<small><i>* You MUST have cookies enabled to use these functions.</i></small>
+</p>
+</div><!-- login-info-content -->
+<div id="login-form-wrapper">
+    <form method="post" id="login-form" name="login-form" onSubmit="return checkForm();">
+        <input type="hidden" id="browser_info" value=Win10, Chrome, Desktop/>
+        <blockquote>
+            <table id="login-form-table" class='MagicEmbeddedTable'>
+                <tr>
+                    <th colspan='2'>
+                        <h4>Login to MagicMail</h4>
+                    </th>
+                </tr>
+                
+
+                <tr>
+                    <td class="textright">
+                        <label for="login-email" title=Enter your full email address.>
+                            Email:
+                        </label>
+                    </td>
+                    <td>
+                        <input size="20" type="email" name="email" id="login-email" autocorrect="off" autocapitalize="none"
+                            value=>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="textright">
+                        <label for="login-password"
+                            title=Enter your password.  Ensure your CAPS LOCK is not on.>
+                                Password:
+                        </label>
+                    </td>
+                    <td class="show-password" >
+                        <input size="20" type="password" name="password"
+                            id="login-password">
+                        <label for="show-password">
+                            <input type="checkbox" id="show-password" onclick="showPass()">
+				                Show Password
+                        </label>
+                    </td>
+                </tr>
+                <tr class="forgot-password-row">
+                    <td></td>
+                    <td id="recover-pass-td">
+                        <a href="recover-password.php">Forgot your password?</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class='formFoot'>
+                        <table>
+                            <tr>
+                                <td class="poweredBy">
+
+                                <a href="https://www.magicmail.com" target="_blank"><img src="https://mail.nwi.net/pics/powered_by.png"> </a>
+
+
+
+
+</td>
+                                <td class="loginBtn">
+                                    <input type="submit" value="Login">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </blockquote>
+    </form>
+</div>
+<!-- $default_login_extra$ -->
+<!-- =================================================================== -->
+<!-- This is the login EXTRA section of the website (below the login form) -->
+
+
+<!-- END OF default_login_extra -->
+<!-- =================================================================== -->
+
+</div><!-- loginContentCell -->
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr id='footer_row'>
+              <td><!-- $Header: /web/programmers/cvs/magicmailphp/magicmaillib/php/html_files/EN/company_footer.html,v 1.1 2005/03/26 01:02:04 michael Exp $ -->
+
+<!-- =================================================================== -->
+<!-- This is the FOOTER section of the website -->
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr align="center" class="MagicCompanyFooter">
+          <td>MagicMail Server is brought to you by LocalTel<br>
+	  	341 Grant Rd. East Wenatchee, WA 98802<br>
+	        Support: 509-888-5700 or Customer Service: 509-888-8888<br>
+		<a href="mailto:support@nwi.net">support@nwi.net</a></td>
+        </tr>
+      </table>
+      <!-- END OF Footer -->
+<!-- =================================================================== -->
+<!-- ================================================================== -->
+<!-- Copyright Information, DO NOT CHANGE BELOW HERE -->
+<!-- ================================================================== -->
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr align="center" class="MagicCopyRight">
+          <td>
+            <p align="center">
+                MagicMail is a Registered Trademark of Wizard Tower TechnoServices Ltd.
+            </p>
+          </td>
+        </tr>
+      </table>
+<!-- ================================================================== -->
+
+            </td>
+        </tr>
+    </table>
+</div><!-- MagicWrapper -->
+</body>
+</html>
